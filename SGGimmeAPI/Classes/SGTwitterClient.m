@@ -622,7 +622,6 @@ static NSString* twitterURL = @"http://api.twitter.com/2";
     if(favoriteId)
         [params setValue:favoriteId forKey:@"id"];
     
-    
     [self sendHTTPRequest:@"GET"
                    toFile:[NSString stringWithFormat:@"/favorites/create/%@", favoriteId]
                withParams:params
@@ -640,6 +639,580 @@ static NSString* twitterURL = @"http://api.twitter.com/2";
                    toFile:[NSString stringWithFormat:@"/favorites/destroy/%@", favoriteId]
                withParams:params
                  callback:callback];    
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Lists
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)allListsForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(userId)
+        [params setValue:userId forKey:@"user_id"];
+    
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/lists/all"
+               withParams:params
+                 callback:callback];
+}
+
+- (void)statusesForList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(listId)
+        [params setValue:listId forKey:@"list_id"];
+
+    if(slug)
+        [params setValue:slug forKey:@"slug"];
+    
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/lists/statuses"
+               withParams:params
+                 callback:callback];    
+}
+
+- (void)removeMember:(NSString *)userId fromList:(NSString *)listId options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(listId)
+        [params setValue:listId forKey:@"list_id"];
+    
+    if(userId)
+        [params setValue:userId forKey:@"user_id"];
+    
+    [self sendHTTPRequest:@"POST"
+                   toFile:@"/lists/members/destroy"
+               withParams:params
+                 callback:callback];        
+}
+
+- (void)listMemembersForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+        
+    if(userId)
+        [params setValue:userId forKey:@"user_id"];
+    
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/lists/memerships"
+               withParams:params
+                 callback:callback];            
+}
+
+- (void)subscribersForList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(listId)
+        [params setValue:listId forKey:@"list_id"];
+    
+    if(slug)
+        [params setValue:slug forKey:@"slug"];
+    
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/lists/memerships"
+               withParams:params
+                 callback:callback];    
+}
+
+- (void)subscribeUserToList:(NSString *)listId options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(listId)
+        [params setValue:listId forKey:@"list_id"];
+    
+    [self sendHTTPRequest:@"POST"
+                   toFile:@"/lists/subscribers/create"
+               withParams:params
+                 callback:callback];
+}
+
+- (void)checkUser:(NSString *)userId
+subscriptionToList:(NSString *)listId
+             slug:(NSString *)slug
+          options:(NSDictionary *)options
+         callback:(SGCallback *)callback;
+
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+
+    if(userId)
+        [params setValue:userId forKey:@"user_id"];
+    
+    if(listId)
+        [params setValue:listId forKey:@"list_id"];
+    
+    if(slug)
+        [params setValue:slug forKey:@"slug"];
+    
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/lists/subscribers/show"
+               withParams:params
+                 callback:callback];    
+}
+
+- (void)destroyUser:(NSString *)userId
+ subscriptionToList:(NSString *)listId
+               slug:(NSString *)slug
+            options:(NSDictionary *)options
+           callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(userId)
+        [params setValue:userId forKey:@"user_id"];
+    
+    if(listId)
+        [params setValue:listId forKey:@"list_id"];
+    
+    if(slug)
+        [params setValue:slug forKey:@"slug"];
+    
+    [self sendHTTPRequest:@"POST"
+                   toFile:@"/lists/subscribers/destroy"
+               withParams:params
+                 callback:callback];
+}
+
+- (void)createMembers:(NSString *)userIds
+               inList:(NSString *)listId
+                 slug:(NSString *)slug
+              options:(NSDictionary *)options
+             callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(userIds)
+        [params setValue:userIds forKey:@"user_id"];
+    
+    if(listId)
+        [params setValue:listId forKey:@"list_id"];
+    
+    if(slug)
+        [params setValue:slug forKey:@"slug"];
+    
+    [self sendHTTPRequest:@"POST"
+                   toFile:@"/lists/members/create_all"
+               withParams:params
+                 callback:callback];    
+}
+
+- (void)showMembersForUser:(NSString *)userId
+                    inList:(NSString *)listId
+                      slug:(NSString *)slug
+                   options:(NSDictionary *)options 
+                  callback:(SGCallback *)callback
+{
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(userId)
+        [params setValue:userId forKey:@"user_id"];
+    
+    if(listId)
+        [params setValue:listId forKey:@"list_id"];
+    
+    if(slug)
+        [params setValue:slug forKey:@"slug"];
+
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/lists/members/show"
+               withParams:params
+                 callback:callback];
+}
+
+- (void)addMember:(NSString *)userId
+           toList:(NSString *)listId 
+             slug:(NSString *)slug
+          options:(NSDictionary *)options
+         callback:(SGCallback *)callback;
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(userId)
+        [params setValue:userId forKey:@"user_id"];
+    
+    if(listId)
+        [params setValue:listId forKey:@"list_id"];
+    
+    if(slug)
+        [params setValue:slug forKey:@"slug"];
+        
+    [self sendHTTPRequest:@"POST"
+                   toFile:@"/lists/members/create"
+               withParams:params
+                 callback:callback];
+}
+
+- (void)destroyList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(listId)
+        [params setValue:listId forKey:@"list_id"];
+    
+    if(slug)
+        [params setValue:slug forKey:@"slug"];
+    
+    [self sendHTTPRequest:@"POST"
+                   toFile:@"/lists/destroy"
+               withParams:params
+                 callback:callback];    
+}
+
+- (void)updateList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(listId)
+        [params setValue:listId forKey:@"list_id"];
+    
+    if(slug)
+        [params setValue:slug forKey:@"slug"];
+    
+    [self sendHTTPRequest:@"POST"
+                   toFile:@"/lists/members/update"
+               withParams:params
+                 callback:callback];
+}
+
+- (void)createList:(NSString *)name options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(name)
+        [params setValue:name forKey:@"name"];
+        
+    [self sendHTTPRequest:@"POST"
+                   toFile:@"/lists/members/create"
+               withParams:params
+                 callback:callback];    
+}
+
+- (void)listsForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(userId)
+        [params setValue:userId forKey:@"user_id"];
+    
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/lists"
+               withParams:params
+                 callback:callback];        
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Notifications
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)enableDeviceNotificaitons:(BOOL)enable
+                          forUser:(NSString *)userId
+                          options:(NSDictionary *)options
+                         callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(userId)
+        [params setValue:userId forKey:@"user_id"];
+
+    [self sendHTTPRequest:@"POST"
+                   toFile:[NSString stringWithFormat:@"/notifications/%@", enable ? @"follow" : @"leave"]
+               withParams:params
+                 callback:callback];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Saved Searches
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)savedSearches:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/saved_searches"
+               withParams:nil
+                 callback:callback];
+}
+
+- (void)savedSearchesForSearch:(NSString *)searchId callback:(SGCallback *)callback;
+{
+    [self sendHTTPRequest:@"GET"
+                   toFile:[NSString stringWithFormat:@"/saved_searches/show/%@", searchId]
+               withParams:nil
+                 callback:callback];
+}
+
+- (void)createdSavedSearch:(NSString *)query callback:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"POST"
+                   toFile:@"/saved_searches/create"
+               withParams:[NSDictionary dictionaryWithObject:query forKey:@"q"]
+                 callback:callback];
+}
+
+- (void)destroySavedSearch:(NSString *)searchId callback:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"POST"
+                   toFile:[NSString stringWithFormat:@"/saved_searches/destroy/%@", searchId]
+               withParams:nil
+                 callback:callback];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Local Trends
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)trendsForWOEID:(NSString *)woeid callback:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"GET"
+                   toFile:[NSString stringWithFormat:@"/trends/%@", woeid]
+               withParams:nil
+                 callback:callback];
+}
+
+- (void)availableTrends:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/trends/available"
+               withParams:options
+                 callback:callback];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Places and Geo
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)placeInfomation:(NSString *)placeId callback:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"GET"
+                   toFile:[NSString stringWithFormat:@"/geo/id/%@", placeId]
+               withParams:nil
+                 callback:callback];
+}
+
+- (void)reverseGeocodeLatitude:(double)lat longitude:(double)longitude options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    [params setValue:[NSNumber numberWithDouble:lat] forKey:@"lat"];
+    [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"long"];
+    
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/geo/reverse_geocoder"
+               withParams:params
+                 callback:callback];
+}
+
+- (void)searchPlaces:(NSString *)query options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(query)
+        [params setObject:query forKey:@"q"];
+    
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/geo/search"
+               withParams:params
+                 callback:callback];
+}
+
+- (void)searchSimilarPlaces:(NSString *)name latitude:(double)lat longitude:(double)lon options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(name)
+        [params setObject:name forKey:@"name"];
+
+    [params setValue:[NSNumber numberWithDouble:lat] forKey:@"lat"];
+    [params setValue:[NSNumber numberWithDouble:lon] forKey:@"long"];    
+    
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/geo/similar_places"
+               withParams:params
+                 callback:callback];    
+}
+
+- (void)createPlace:(NSString *)name containWithin:(NSString *)placeId token:(NSString *)token latitude:(double)lat longitude:(double)lon callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    if(name)
+        [params setObject:name forKey:@"name"];
+    
+    if(token)
+        [params setObject:token forKey:@"token"];
+    
+    [params setValue:[NSNumber numberWithDouble:lat] forKey:@"lat"];
+    [params setValue:[NSNumber numberWithDouble:lon] forKey:@"long"];    
+    
+    [self sendHTTPRequest:@"POST"
+                   toFile:@"/geo/place"
+               withParams:params
+                 callback:callback];    
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Trends
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)trends:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/trends"
+               withParams:nil
+                 callback:callback];
+}
+
+- (void)currentTrends:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/trends/current"
+               withParams:options 
+                 callback:callback];
+}
+
+- (void)dailyTrends:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/trends/daily"
+               withParams:options
+                 callback:callback];
+}
+
+- (void)weeklyTrends:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/trends/weekly"
+               withParams:options
+                 callback:callback];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Blocks
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)blocking:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/blocks/blocking"
+               withParams:options
+                 callback:callback];
+}
+
+- (void)blockingByIds:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/blocks/blocking/ids"
+               withParams:options
+                 callback:callback];
+}
+
+- (void)existingBlocksForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(userId)
+        [params setObject:userId forKey:@"user_id"];
+    
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/blocks/exists"
+               withParams:options 
+                 callback:callback];
+}
+
+- (void)createBlockForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(userId)
+        [params setObject:userId forKey:@"user_id"];
+    
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/blocks/create"
+               withParams:options 
+                 callback:callback];    
+}
+
+- (void)destroyBlockForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if(options)
+        [params setDictionary:options];
+    
+    if(userId)
+        [params setObject:userId forKey:@"user_id"];
+    
+    [self sendHTTPRequest:@"GET"
+                   toFile:@"/blocks/destroy"
+               withParams:options 
+                 callback:callback];        
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Spam
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)reportSpamForUser:(NSString *)userId callback:(SGCallback *)callback
+{
+    [self sendHTTPRequest:@"POST"
+                   toFile:@"/report_spam"
+               withParams:[NSDictionary dictionaryWithObject:userId forKey:@"user_id"]
+                 callback:callback];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

@@ -81,10 +81,7 @@
 
 - (void)followersForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
 - (void)friendsForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
-- (void)friendshipExistsBetweenUser:(NSString *)userIdA 
-                            andUser:(NSString *)userIdB
-                            options:(NSDictionary *)options 
-                           callback:(SGCallback *)callback;
+- (void)friendshipExistsBetweenUser:(NSString *)userIdA  andUser:(NSString *)userIdB options:(NSDictionary *)options  callback:(SGCallback *)callback;
 - (void)incomingFriendships:(NSDictionary *)options callback:(SGCallback *)callback;
 - (void)outgoingFriendships:(NSDictionary *)options callback:(SGCallback *)callback;
 - (void)showFriendships:(NSDictionary *)options callback:(SGCallback *)callback;
@@ -122,5 +119,89 @@
 - (void)createFavorite:(NSString *)favoriteId options:(NSDictionary *)options callback:(SGCallback *)callback;
 - (void)destroyFavorite:(NSString *)favoriteId callback:(SGCallback *)callback;
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Lists
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)allListsForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)statusesForList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)removeMember:(NSString *)userId fromList:(NSString *)listId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)listMemembersForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)subscribersForList:(NSString *)listId slug:(NSString *)slugId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)subscribeUserToList:(NSString *)listId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)checkUser:(NSString *)userId subscriptionToList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)destroyUser:(NSString *)userId subscriptionToList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)createMembers:(NSString *)userIds inList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)showMembersForUser:(NSString *)userId inList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)addMember:(NSString *)userId toList:(NSString *)listId  slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)destroyList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)updateList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)createList:(NSString *)name options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)listsForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Notifications
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)enableDeviceNotificaitons:(BOOL)enable forUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Saved Searches
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)savedSearches:(SGCallback *)callback;
+- (void)savedSearchesForSearch:(NSString *)searchId callback:(SGCallback *)callback;
+- (void)createdSavedSearch:(NSString *)query callback:(SGCallback *)callback;
+- (void)destroySavedSearch:(NSString *)searchId callback:(SGCallback *)callback;
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Local Trends
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)trendsForWOEID:(NSString *)woeid callback:(SGCallback *)callback;
+- (void)availableTrends:(NSDictionary *)options callback:(SGCallback *)callback;
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Places and Geo
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)placeInfomation:(NSString *)placeId callback:(SGCallback *)callback;
+- (void)reverseGeocodeLatitude:(double)lat longitude:(double)longitude options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)searchPlaces:(NSString *)query options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)searchSimilarPlaces:(NSString *)name latitude:(double)lat longitude:(double)lon options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)createPlace:(NSString *)place containWithin:(NSString *)placeId token:(NSString *)token latitude:(double)lat longitude:(double)lon callback:(SGCallback *)callback;
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Trends
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)trends:(SGCallback *)callback;
+- (void)currentTrends:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)dailyTrends:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)weeklyTrends:(NSDictionary *)options callback:(SGCallback *)callback;
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Block
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)blocking:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)blockingByIds:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)existingBlocksForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)createBlockForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)destroyBlockForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Spam
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)reportSpamForUser:(NSString *)userId callback:(SGCallback *)callback;
 
 @end
