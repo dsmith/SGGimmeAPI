@@ -332,7 +332,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
                callback:(SGCallback *)callback
 {
     [self sendHTTPRequest:type 
-                    toURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@.json"]]
+                    toURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@.json", foursquareURL, file]]
                withParams:params
                  callback:callback];
 }
