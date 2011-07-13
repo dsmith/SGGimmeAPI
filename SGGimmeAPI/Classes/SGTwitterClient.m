@@ -8,7 +8,7 @@
 
 #import "SGTwitterClient.h"
 
-static NSString* twitterURL = @"http://api.twitter.com/2";
+static NSString* twitterURL = @"http://api.twitter.com/1";
 
 @interface SGTwitterClient (Private)
 
@@ -314,7 +314,7 @@ static NSString* twitterURL = @"http://api.twitter.com/2";
                  callback:callback];
 }
 
-- (void)newDirectMessage:(NSString *)text options:(NSDictionary *)options callback:(SGCallback *)callback
+- (void)newDirectMessage:(NSString *)text toUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
 {    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
@@ -322,6 +322,9 @@ static NSString* twitterURL = @"http://api.twitter.com/2";
     
     if(text)
         [params setValue:text forKey:@"text"];
+    
+    if(userId)
+        [params setValue:userId forKey:@"user_id"];
     
     [self sendHTTPRequest:@"POST"
                    toFile:@"/direct_messages/new"

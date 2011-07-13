@@ -15,6 +15,29 @@
 
 #import "JSON.h"
 
+@implementation SGCallback
+@synthesize delegate, successMethod, failureMethod;
+
+- (id)initWithDelegate:(id)d successMethod:(SEL)sMethod failureMethod:(SEL)fMethod
+{
+    self = [super init];
+    if(self) {
+        delegate = d;
+        successMethod = sMethod;
+        failureMethod = fMethod;
+    }
+    
+    return self;
+}
+
++(SGCallback *) callbackWithDelegate:(id)delegate successMethod:(SEL)successMethod failureMethod:(SEL)failureMethod
+{
+    return [[[SGCallback alloc] initWithDelegate:delegate successMethod:successMethod failureMethod:failureMethod] autorelease];
+}
+
+@end
+
+
 @interface SGHTTPClient (Private)
 
 - (void)handleFailure:(ASIHTTPRequest *)request;
@@ -29,10 +52,13 @@
 
 - (id)initWithConsumerKey:(NSString *)key consumerSecret:(NSString *)secret
 {
-    return [self initWithConsumerKey:key consumerSecret:secret accessToken:nil];
+    return [self initWithConsumerKey:key consumerSecret:secret accessToken:nil accessSecret:nil];
 }
 
-- (id)initWithConsumerKey:(NSString *)key consumerSecret:(NSString *)secret accessToken:(NSString *)token
+- (id)initWithConsumerKey:(NSString *)key
+           consumerSecret:(NSString *)secret 
+              accessToken:(NSString *)tokenKey 
+             accessSecret:(NSString *)tokenSecret
 {
     self = [super init];
     if(self) {
@@ -44,7 +70,8 @@
         
         consumerKey = [key retain];
         consumerSecret = [secret retain];
-        accessToken = [token retain];
+        accessToken = [tokenKey retain];
+        accessSecret = [tokenSecret retain];
     }
     
     return self;    
@@ -55,9 +82,9 @@
 #pragma mark ASIHTTPRequest delegate methods 
 //////////////////////////////////////////////////////////////////////////////////////////////// 
 
-- (void)requestFinished:(ASIHTTPRequest*)request
+- (void)requestFinished:(ASIHTTPRequest *)request
 {    
-    if(0 <= ([request responseStatusCode] - 200) <= 99)
+    if(200 <= [request responseStatusCode] && [request responseStatusCode] < 300)
         [self handleSuccess:request];
     else
         [self handleFailure:request];
@@ -73,7 +100,7 @@
     NSDictionary* userInfo = [request userInfo];
     if(userInfo) {
         SGCallback *callback = [userInfo objectForKey:@"callback"];
-        if(callback && [callback respondsToSelector:callback.successMethod])
+        if(callback && callback.delegate && [callback.delegate respondsToSelector:callback.successMethod])
             [callback.delegate performSelector:callback.successMethod 
                                     withObject:[self jsonObjectForResponseData:[request responseData]]];    
     }
@@ -92,7 +119,9 @@
             NSError* error = [NSError errorWithDomain:[request.url description]
                                                  code:[request responseStatusCode]
                                              userInfo:userInfo];
-            [callback.delegate performSelector:callback.failureMethod withObject:error];  
+            if(callback && callback.delegate && [callback.delegate respondsToSelector:callback.failureMethod])
+                [callback.delegate performSelector:callback.failureMethod withObject:error];  
+            SGLog(@"request failed - %@", [error localizedDescription]);
         }
     }
 }
@@ -117,7 +146,11 @@
         }
         request = postRequest;
     } else {
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [url absoluteString], [self normalizeRequestParams:params]]];
+        NSString *queryParameters = @"";
+        if(params && [params count])
+            queryParameters = [NSString stringWithFormat:@"?%@", [self normalizeRequestParams:params]];
+        
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [url absoluteString], queryParameters]];
         request = [ASIHTTPRequest requestWithURL:url];        
     }
 
@@ -126,12 +159,22 @@
     [request signRequestWithClientIdentifier:consumerKey
                                       secret:consumerSecret
                              tokenIdentifier:accessToken
-                                      secret:nil
+                                      secret:accessSecret
                                  usingMethod:ASIOAuthHMAC_SHA1SignatureMethod];
 
     [request setDelegate:self];
     [request addRequestHeader:@"User-Agent" value:userAgent];
     [request startAsynchronous];
+}
+
+- (NSObject *)jsonObjectForResponseData:(NSData *)data
+{
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+    NSDictionary *jsonObject = nil;
+    if(jsonString)
+         jsonObject = [jsonString JSONValue];
+    [jsonString release];
+    return jsonObject;
 }
 
 - (NSString *)normalizeRequestParams:(NSDictionary *)params
@@ -154,6 +197,7 @@
 {
     [consumerKey release];
     [accessToken release];
+    [accessSecret release];
     [consumerSecret release];
     [userAgent release];
     [super dealloc];

@@ -33,10 +33,14 @@
     NSString *consumerKey;
     NSString *consumerSecret;
     NSString *accessToken;
+    NSString *accessSecret;
 }
 
 - (id)initWithConsumerKey:(NSString *)key consumerSecret:(NSString *)secret;
-- (id)initWithConsumerKey:(NSString *)key consumerSecret:(NSString *)secret accessToken:(NSString *)token;
+- (id)initWithConsumerKey:(NSString *)key
+           consumerSecret:(NSString *)secret 
+              accessToken:(NSString *)accessToken 
+             accessSecret:(NSString *)accessSecret;
 
 - (void)sendHTTPRequest:(NSString *)type
                   toURL:(NSURL *)url

@@ -71,7 +71,7 @@
 - (void)directMessages:(NSDictionary *)options callback:(SGCallback *)callback;
 - (void)directMessagesSent:(NSDictionary *)options callback:(SGCallback *)callback;
 - (void)destroyDirectMessage:(NSString *)messageId options:(NSDictionary *)options callback:(SGCallback *)callback;
-- (void)newDirectMessage:(NSString *)text options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)newDirectMessage:(NSString *)text toUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
 - (void)getDirectMessage:(NSString *)messageId callback:(SGCallback *)callback;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
