@@ -22,6 +22,7 @@
 		4A1D6A5213CD19E60084A060 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1D6A5113CD19E60084A060 /* MobileCoreServices.framework */; };
 		4A1D6A5313CD19F10084A060 /* libSGGimmeAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A8E814113CD0D840061D3EA /* libSGGimmeAPI.a */; };
 		4A1D6A5513CD1A4E0084A060 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1D6A5413CD1A4E0084A060 /* libz.dylib */; };
+		4A1D6A7E13CF60060084A060 /* SGFoursquareClientTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1D6A7D13CF60060084A060 /* SGFoursquareClientTest.m */; };
 		4ADAAB7213C52060005B77DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADAAB7113C52060005B77DC /* Foundation.framework */; };
 		4ADAACB513C5217A005B77DC /* ASIAuthenticationDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ADAABA913C52179005B77DC /* ASIAuthenticationDialog.h */; };
 		4ADAACB613C5217A005B77DC /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADAABAA13C52179005B77DC /* ASIAuthenticationDialog.m */; };
@@ -104,6 +105,7 @@
 		4A1D6A4D13CD19640084A060 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4A1D6A5113CD19E60084A060 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		4A1D6A5413CD1A4E0084A060 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		4A1D6A7D13CF60060084A060 /* SGFoursquareClientTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGFoursquareClientTest.m; sourceTree = "<group>"; };
 		4A8E811413CD022C0061D3EA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4A8E811713CD022C0061D3EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4A8E813413CD0BCA0061D3EA /* GHUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitTestMain.m; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				4A1D6A2D13CD10870084A060 /* Supporting Files */,
 				4A1D6A4013CD126F0084A060 /* SGTwitterClientTest.m */,
 				4A1D6A4313CD16850084A060 /* credentials.plist */,
+				4A1D6A7D13CF60060084A060 /* SGFoursquareClientTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 			files = (
 				4A1D6A4113CD126F0084A060 /* SGTwitterClientTest.m in Sources */,
 				4A1D6A4213CD12BE0084A060 /* GHUnitTestMain.m in Sources */,
+				4A1D6A7E13CF60060084A060 /* SGFoursquareClientTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -726,6 +730,7 @@
 				4A1D6A3D13CD10870084A060 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4ADAAB6813C5205F005B77DC /* Build configuration list for PBXProject "SGGimmeAPI" */ = {
 			isa = XCConfigurationList;

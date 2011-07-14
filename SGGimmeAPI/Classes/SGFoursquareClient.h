@@ -8,7 +8,6 @@
 
 #import "SGHTTPClient.h"
 
-#import <CoreLocation/CoreLocation.h>
 
 @interface SGFoursquareClient : SGHTTPClient {
     
@@ -16,64 +15,77 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark Geo methods 
+#pragma mark Check in 
 //////////////////////////////////////////////////////////////////////////////////////////////// 
 
-- (void)activeCitiesCallback:(SGCallback *)callback;
-- (void)closestCityToCoordinate:(CLLocationCoordinate2D)coordinate cityId:(NSString*)cityId callback:(SGCallback *)callback;
-- (void)updateDefaultCity:(NSString *)cityId callback:(SGCallback *)callback;
+- (void)informationForCheckin:(NSString *)checkinId callback:(SGCallback *)callback;
+- (void)checkinToVenue:(NSString *)venueId withMessage:(NSString *)message options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)shout:(NSString *)message options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)recentCheckins:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)addComment:(NSString *)comment toCheckin:(NSString *)checkinId callback:(SGCallback *)callback;
+- (void)deleteComment:(NSString *)commentId fromCheckin:(NSString *)checkinId callback:(SGCallback *)callback;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark Check in methods 
+#pragma mark User
 //////////////////////////////////////////////////////////////////////////////////////////////// 
 
-- (void)checkIns:(NSString *)cityId callback:(SGCallback*)callback;
-- (void)shoutMessage:(NSString *)message coordinate:(CLLocationCoordinate2D)coordinate twitter:(BOOL)enabled callback:(SGCallback *)callback;
-- (void)checkIntoVenue:(NSString*)venueId coordinate:(CLLocationCoordinate2D)coordinate callback:(SGCallback *)callback;
+- (void)userInformation:(NSString *)userId callback:(SGCallback *)callback;
+- (void)userLeaderboard:(SGCallback *)callback;
+- (void)searchForUsers:(NSDictionary *)searchParams callback:(SGCallback *)callback;
+- (void)pendingFriendRequests:(SGCallback *)callback;
+- (void)badgesForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)checkinsForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)friendsForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)mayorshipsForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)tipsFromUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)todosFromUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)venueHistoryForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)sendFriendRequestToUser:(NSString *)userId callback:(SGCallback *)callback;
+- (void)unfriendUser:(NSString *)userId callback:(SGCallback *)callback;
+- (void)approveFriendRequestFromUser:(NSString *)userId callback:(SGCallback *)callback;
+- (void)denyFriendRequestFromUser:(NSString *)userId callback:(SGCallback *)callback;
+- (void)enablePings:(BOOL)enabled fromUser:(NSString *)userId callback:(SGCallback *)callback;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark User methods 
+#pragma mark Venue 
 //////////////////////////////////////////////////////////////////////////////////////////////// 
 
-- (void)userInformation:(NSString *)userId badges:(BOOL)badges mayor:(BOOL)mayor callback:(SGCallback *)callback;
-- (void)historySince:(NSString *)sinceid limit:(int)limit callback:(SGCallback *)callback;
-- (void)friends:(NSString* )uid callback:(SGCallback*)callback;
+- (void)informationForVenue:(NSString *)venueId callback:(SGCallback *)callback;
+- (void)addVenue:(NSString *)name options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)venueCategories:(SGCallback *)callback;
+- (void)exploreVenuesWithLatitude:(double)lat andLongitude:(double)lon options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)searchVenuesWithLatitude:(double)lat andLongitude:(double)lon options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)trendingVenuesWithLatitude:(double)lat andLongitude:(double)lon options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)hereNowAtVenue:(NSString *)venueId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)tipsForVenue:(NSString *)venueId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)photosFromVenue:(NSString *)venueId options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)linksForVenue:(NSString *)venueId callback:(SGCallback *)callback;
+- (void)markVenue:(NSString *)venueId asToDo:(NSString *)message callback:(SGCallback *)callback;
+- (void)flagVenue:(NSString *)venueId withProblem:(NSString *)problem callback:(SGCallback *)callback;
+- (void)editVenue:(NSString *)venueId withOptions:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)proposeEditToVenue:(NSString *)venueId withOptions:(NSDictionary *)options callback:(SGCallback *)callback;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark Venue methods 
+#pragma mark Tips 
 //////////////////////////////////////////////////////////////////////////////////////////////// 
 
-- (void)venuesNearbyCoordinate:(CLLocationCoordinate2D)coordinate limit:(int)limit keyword:(NSString *)keyword callback:(SGCallback *)callback;
-- (void)venueInformation:(NSString *)vid callback:(SGCallback*)callback;
-- (void)addVenue:(NSString *)vid addressDictionary:(NSDictionary *)addressDictionary callback:(SGCallback *)callback;
-- (void)editVenue:(NSString *)vid addressDictionary:(NSDictionary *)addressDictionary callback:(SGCallback *)callback;
-- (void)venueClosed:(NSString *)vid callback:(SGCallback *)callback;
+- (void)informationForTip:(NSString *)tipId callback:(SGCallback *)callback;
+- (void)addTip:(NSString *)tip toVenue:(NSString *)venueId withURL:(NSString *)url callback:(SGCallback *)callback;
+- (void)searchTipsWithLatitude:(double)lat longitude:(double)lon options:(NSDictionary *)options callback:(SGCallback *)callback;
+- (void)markToDoForTip:(NSString *)tipId callback:(SGCallback *)callback;
+- (void)unmarkToDoForTip:(NSString *)tipId callback:(SGCallback *)callback;
+- (void)markDoneForTip:(NSString *)tipId callback:(SGCallback *)callback;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark Tips methods 
-//////////////////////////////////////////////////////////////////////////////////////////////// 
-
-- (void)tipsNearbyCoordinate:(CLLocationCoordinate2D)coordinate limit:(NSInteger)limit callback:(SGCallback *)callback;
-- (void)addTipToVenue:(NSString *)vid tip:(NSString *)tip type:(NSString *)type callback:(SGCallback *)callback;
-- (void)markTipAsToDo:(NSString *)tid callback:(SGCallback *)callback;
-- (void)markTipAsDone:(NSString *)tid callback:(SGCallback *)callback;
-- (void)unmarkTip:(NSString *)tid callback:(SGCallback *)callback;
-
+#pragma mark Settings
 ////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Friends methods 
-//////////////////////////////////////////////////////////////////////////////////////////////// 
 
-- (void)pendingFriendRequestsCallback:(SGCallback *)callback;
-- (void)approveFriendRequest:(NSString *)uid callback:(SGCallback *)callback;
-- (void)denyFriendRequest:(NSString *)uid callback:(SGCallback *)callback;
-- (void)sendFriendRequest:(NSString *)uid callback:(SGCallback *)callback;
-- (void)findFriendsViaName:(NSString *)keyword callback:(SGCallback *)callback;
-- (void)findFriendsViaTwitter:(NSString *)keyword callback:(SGCallback *)callback;
-- (void)findFriendsViaPhone:(NSString *)keyword callback:(SGCallback *)callback;
+- (void)settingsForUser:(NSString *)userId callback:(SGCallback *)callback;
+- (void)enable:(BOOL)enable setting:(NSString *)setting callback:(SGCallback *)callback;
+
 
 @end

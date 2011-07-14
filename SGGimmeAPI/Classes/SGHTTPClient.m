@@ -55,6 +55,14 @@
     return [self initWithConsumerKey:key consumerSecret:secret accessToken:nil accessSecret:nil];
 }
 
+- (id)initWithAccessToken:(NSString *)token
+{
+    return [self initWithConsumerKey:nil
+                      consumerSecret:nil
+                         accessToken:token
+                        accessSecret:nil];
+}
+
 - (id)initWithConsumerKey:(NSString *)key
            consumerSecret:(NSString *)secret 
               accessToken:(NSString *)tokenKey 
@@ -68,10 +76,14 @@
                       @"1.0",
                       [infoDictionary objectForKey:@"CFBundleName"], [infoDictionary objectForKey:@"CFBundleVersion"]] retain];
         
-        consumerKey = [key retain];
-        consumerSecret = [secret retain];
-        accessToken = [tokenKey retain];
-        accessSecret = [tokenSecret retain];
+        if(key)
+            consumerKey = [key retain];
+        if(secret)
+            consumerSecret = [secret retain];
+        if(tokenKey)
+            accessToken = [tokenKey retain];
+        if(tokenSecret)
+            accessSecret = [tokenSecret retain];
     }
     
     return self;    
@@ -137,6 +149,13 @@
                callback:(SGCallback *)callback
 {	
     SGLog(@"Sending %@ to %@", type, [url description]);
+    
+    if(accessToken && !consumerKey && !consumerSecret) {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",
+                                    [url absoluteString],
+                                    [url query] ? @"&" : @"?",
+                                    [self normalizeRequestParams:[NSDictionary dictionaryWithObject:accessToken forKey:@"oauth_token"]]]];
+    }
 
     ASIHTTPRequest* request = nil;
     if([type isEqualToString:@"POST"]) {
@@ -148,20 +167,24 @@
     } else {
         NSString *queryParameters = @"";
         if(params && [params count])
-            queryParameters = [NSString stringWithFormat:@"?%@", [self normalizeRequestParams:params]];
+            queryParameters = [NSString stringWithFormat:@"%@%@", 
+                               url.query ? @"&" : @"?",
+                               [self normalizeRequestParams:params]];
         
         url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [url absoluteString], queryParameters]];
         request = [ASIHTTPRequest requestWithURL:url];        
     }
 
-    request.userInfo = [NSDictionary dictionaryWithObject:callback forKey:@"callback"];
     request.requestMethod = type;
-    [request signRequestWithClientIdentifier:consumerKey
-                                      secret:consumerSecret
-                             tokenIdentifier:accessToken
-                                      secret:accessSecret
-                                 usingMethod:ASIOAuthHMAC_SHA1SignatureMethod];
-
+    if(consumerKey && consumerSecret) {
+        [request signRequestWithClientIdentifier:consumerKey
+                                          secret:consumerSecret
+                                 tokenIdentifier:accessToken
+                                          secret:accessSecret
+                                     usingMethod:ASIOAuthHMAC_SHA1SignatureMethod];
+    }
+    NSLog([[request url] description]);
+    request.userInfo = [NSDictionary dictionaryWithObject:callback forKey:@"callback"];    
     [request setDelegate:self];
     [request addRequestHeader:@"User-Agent" value:userAgent];
     [request startAsynchronous];

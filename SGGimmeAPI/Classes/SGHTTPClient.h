@@ -41,6 +41,7 @@
            consumerSecret:(NSString *)secret 
               accessToken:(NSString *)accessToken 
              accessSecret:(NSString *)accessSecret;
+- (id)initWithAccessToken:(NSString *)accessToken;
 
 - (void)sendHTTPRequest:(NSString *)type
                   toURL:(NSURL *)url
