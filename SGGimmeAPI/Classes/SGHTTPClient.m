@@ -15,8 +15,20 @@
 
 #import "JSON.h"
 
+@interface SGCallback (Private)
+
+#if NS_BLOCKS_AVAILABLE
++ (void)releaseBlocks:(NSArray *)blocks;
+#endif
+
+@end
+
 @implementation SGCallback
 @synthesize delegate, successMethod, failureMethod;
+
+#if NS_BLOCKS_AVAILABLE
+@synthesize successBlock, failureBlock;
+#endif
 
 - (id)initWithDelegate:(id)d successMethod:(SEL)sMethod failureMethod:(SEL)fMethod
 {
@@ -35,8 +47,51 @@
     return [[[SGCallback alloc] initWithDelegate:delegate successMethod:successMethod failureMethod:failureMethod] autorelease];
 }
 
-@end
+#if NS_BLOCKS_AVAILABLE
++ (SGCallback *)callbackWithSuccessBlock:(SGSuccessBlock)sBlock failureBlock:(SGFailureBlock)fBlock
+{
+    return [[[SGCallback alloc] initWithSuccessBlock:sBlock failureBlock:fBlock] autorelease];
+}
 
+- (id)initWithSuccessBlock:(SGSuccessBlock)sBlock failureBlock:(SGFailureBlock)fBlock
+{
+    self = [super init];
+    if(self) {
+        successBlock = sBlock;
+        failureBlock = fBlock;
+    }
+    
+    return self;
+}
+#endif
+
+- (void)dealloc
+{
+#if NS_BLOCKS_AVAILABLE
+	NSMutableArray *blocks = [NSMutableArray array];
+	if(successBlock) {
+		[blocks addObject:successBlock];
+		[successBlock release];
+		successBlock = nil;
+	}
+	if(failureBlock) {
+		[blocks addObject:failureBlock];
+		[failureBlock release];
+		failureBlock = nil;
+	}    
+    [[self class] performSelectorOnMainThread:@selector(releaseBlocks:) 
+                               withObject:blocks
+                            waitUntilDone:[NSThread isMainThread]];
+    [super dealloc];
+}
+
++ (void)releaseBlocks:(NSArray *)blocks
+{
+	// Blocks will be released when this method exits
+}
+#endif
+
+@end
 
 @interface SGHTTPClient (Private)
 
@@ -112,9 +167,15 @@
     NSDictionary* userInfo = [request userInfo];
     if(userInfo) {
         SGCallback *callback = [userInfo objectForKey:@"callback"];
+        NSObject *response = [self jsonObjectForResponseData:[request responseData]];
         if(callback && callback.delegate && [callback.delegate respondsToSelector:callback.successMethod])
             [callback.delegate performSelector:callback.successMethod 
-                                    withObject:[self jsonObjectForResponseData:[request responseData]]];    
+                                    withObject:response];    
+
+#if NS_BLOCKS_AVAILABLE
+        if(callback.successBlock)
+            callback.successBlock(response);
+#endif
     }
 }
 
@@ -134,6 +195,11 @@
             if(callback && callback.delegate && [callback.delegate respondsToSelector:callback.failureMethod])
                 [callback.delegate performSelector:callback.failureMethod withObject:error];  
             SGLog(@"request failed - %@", [error localizedDescription]);
+
+#if NS_BLOCKS_AVAILABLE
+            if(callback.failureBlock)
+                callback.failureBlock(error);
+#endif
         }
     }
 }

@@ -167,10 +167,10 @@
 		4ADAADB813C522B7005B77DC /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		4ADAADB913C522B7005B77DC /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		4ADAADBA13C522B7005B77DC /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		4ADAAE6113C628B1005B77DC /* SGFoursquareClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGFoursquareClient.h; sourceTree = "<group>"; };
-		4ADAAE6213C628B1005B77DC /* SGFoursquareClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGFoursquareClient.m; sourceTree = "<group>"; };
-		4ADAAE6613C628BD005B77DC /* SGTwitterClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGTwitterClient.h; sourceTree = "<group>"; };
-		4ADAAE6713C628BD005B77DC /* SGTwitterClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGTwitterClient.m; sourceTree = "<group>"; };
+		4ADAAE6113C628B1005B77DC /* SGFoursquareClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SGFoursquareClient.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		4ADAAE6213C628B1005B77DC /* SGFoursquareClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SGFoursquareClient.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		4ADAAE6613C628BD005B77DC /* SGTwitterClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SGTwitterClient.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		4ADAAE6713C628BD005B77DC /* SGTwitterClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SGTwitterClient.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4ADAAE7013C62A57005B77DC /* SGHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGHTTPClient.h; sourceTree = "<group>"; };
 		4ADAAE7113C62A57005B77DC /* SGHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGHTTPClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -231,11 +231,11 @@
 		4ADAAB6313C5205F005B77DC = {
 			isa = PBXGroup;
 			children = (
-				4A1D6A5113CD19E60084A060 /* MobileCoreServices.framework */,
 				4ADAAB7313C52060005B77DC /* SGGimmeAPI */,
 				4A1D6A2C13CD10870084A060 /* Tests */,
 				4ADAAB7013C52060005B77DC /* Frameworks */,
 				4ADAAB6F13C52060005B77DC /* Products */,
+				4A8E814113CD0D840061D3EA /* libSGGimmeAPI.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -250,8 +250,8 @@
 		4ADAAB7013C52060005B77DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4A1D6A5113CD19E60084A060 /* MobileCoreServices.framework */,
 				4A1D6A5413CD1A4E0084A060 /* libz.dylib */,
-				4A8E814113CD0D840061D3EA /* libSGGimmeAPI.a */,
 				4A1D6A4D13CD19640084A060 /* SystemConfiguration.framework */,
 				4A1D6A4813CD17B90084A060 /* CFNetwork.framework */,
 				4ADAAB7113C52060005B77DC /* Foundation.framework */,

@@ -8,20 +8,40 @@
 
 #import <Foundation/Foundation.h>
 
+#if NS_BLOCKS_AVAILABLE
+typedef void (^SGFailureBlock)(NSError *error);
+typedef void (^SGSuccessBlock)(NSObject *response);
+#endif
+
 @interface SGCallback : NSObject
 {
     @private
     id delegate;
     SEL successMethod;
     SEL failureMethod;
+
+#if NS_BLOCKS_AVAILABLE
+    SGFailureBlock failureBlock;
+    SGSuccessBlock successBlock;
+#endif
 }
 
 @property (nonatomic, readonly) id delegate;
 @property (nonatomic, readonly) SEL successMethod;
 @property (nonatomic, readonly) SEL failureMethod;
 
+#if NS_BLOCKS_AVAILABLE
+@property (nonatomic, readonly) SGSuccessBlock successBlock;
+@property (nonatomic, readonly) SGFailureBlock failureBlock;
+#endif
+
 + (SGCallback *)callbackWithDelegate:(id)delegate successMethod:(SEL)method failureMethod:(SEL)method;
 - (id)initWithDelegate:(id)delegate successMethod:(SEL)method failureMethod:(SEL)method;
+
+#if NS_BLOCKS_AVAILABLE
++ (SGCallback *)callbackWithSuccessBlock:(SGSuccessBlock)sBlock failureBlock:(SGFailureBlock)fBlock;
+- (id)initWithSuccessBlock:(SGSuccessBlock)sBlock failureBlock:(SGFailureBlock)fBlock;
+#endif
 
 @end
 
