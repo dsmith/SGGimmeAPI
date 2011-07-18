@@ -183,7 +183,7 @@
                                           secret:accessSecret
                                      usingMethod:ASIOAuthHMAC_SHA1SignatureMethod];
     }
-    NSLog([[request url] description]);
+
     request.userInfo = [NSDictionary dictionaryWithObject:callback forKey:@"callback"];    
     [request setDelegate:self];
     [request addRequestHeader:@"User-Agent" value:userAgent];
