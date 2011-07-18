@@ -3,7 +3,7 @@
 //  SGGimmeAPI
 //
 //  Created by Derek Smith on 7/12/11.
-//  Copyright 2011 SimpleGeo. All rights reserved.
+//  Copyright 2011 Dsmitts. All rights reserved.
 //
 
 #import <GHUnitIOS/GHUnit.h>
