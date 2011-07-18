@@ -3,7 +3,7 @@
 //  SGGimmeAPI
 //
 //  Created by Derek Smith on 7/7/11.
-//  Copyright 2011 SimpleGeo. All rights reserved.
+//  Copyright 2011 Dsmitts. All rights reserved.
 //
 
 #import "SGHTTPClient.h"
@@ -71,7 +71,7 @@
     self = [super init];
     if(self) {
         NSDictionary *infoDictionary = [[NSBundle bundleForClass:[self class]] infoDictionary];
-        userAgent = [[NSString stringWithFormat:@"%@ %@; SimpleGeo/Obj-C %@; %@ %@",
+        userAgent = [[NSString stringWithFormat:@"%@ %@; Dsmitts/Obj-C %@; %@ %@",
                       [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion],
                       @"1.0",
                       [infoDictionary objectForKey:@"CFBundleName"], [infoDictionary objectForKey:@"CFBundleVersion"]] retain];
