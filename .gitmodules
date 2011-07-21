@@ -3,4 +3,4 @@
 	url = https://github.com/pokeb/asi-http-request.git
 [submodule "SGGimmeAPI/Resources/asi-http-request-oauth"]
 	path = SGGimmeAPI/Resources/asi-http-request-oauth
-	url = https://github.com/keybuk/asi-http-request-oauth.git
+	url = https://github.com/dsmith/asi-http-request-oauth.git
