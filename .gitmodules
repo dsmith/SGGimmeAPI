@@ -4,6 +4,3 @@
 [submodule "SGGimmeAPI/Resources/asi-http-request-oauth"]
 	path = SGGimmeAPI/Resources/asi-http-request-oauth
 	url = https://github.com/keybuk/asi-http-request-oauth.git
-[submodule "SGGimmeAPI/Resources/facebook-ios-sdk"]
-	path = SGGimmeAPI/Resources/facebook-ios-sdk
-	url = http://github.com/facebook/facebook-ios-sdk
