@@ -30,6 +30,11 @@
 @synthesize successBlock, failureBlock;
 #endif
 
++ (SGCallback *)callback
+{
+    return [[[SGCallback alloc] initWithDelegate:nil successMethod:nil failureMethod:nil] autorelease];
+}
+
 - (id)initWithDelegate:(id)d successMethod:(SEL)sMethod failureMethod:(SEL)fMethod
 {
     self = [super init];
@@ -57,8 +62,8 @@
 {
     self = [super init];
     if(self) {
-        successBlock = sBlock;
-        failureBlock = fBlock;
+        successBlock = [sBlock retain];
+        failureBlock = [fBlock retain];
     }
     
     return self;
@@ -95,15 +100,14 @@
 
 @interface SGHTTPClient (Private)
 
-- (void)handleFailure:(ASIHTTPRequest *)request;
-- (void)handleSuccess:(ASIHTTPRequest *)request;
-
 - (NSString *)normalizeRequestParams:(NSDictionary *)params;
 - (NSObject *)jsonObjectForResponseData:(NSData *)data;
 
 @end
 
 @implementation SGHTTPClient
+@synthesize verifier, oauthCallback;
+@synthesize consumerKey, consumerSecret, accessToken, accessSecret;
 
 - (id)initWithConsumerKey:(NSString *)key consumerSecret:(NSString *)secret
 {
@@ -144,6 +148,19 @@
     return self;    
 }
 
+- (void)updateConsumerKey:(NSString *)key andSecret:(NSString *)secret
+{
+    if(consumerKey)
+        [consumerKey release];
+    
+    consumerKey = [key retain];
+    
+    if(consumerSecret)
+        [consumerSecret release];
+
+    consumerSecret = [secret retain];
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark ASIHTTPRequest delegate methods 
@@ -152,56 +169,46 @@
 - (void)requestFinished:(ASIHTTPRequest *)request
 {    
     if(200 <= [request responseStatusCode] && [request responseStatusCode] < 300)
-        [self handleSuccess:request];
+        [self handleSuccess:request withCallback:[[request userInfo] objectForKey:@"callback"]];
     else
-        [self handleFailure:request];
+        [self handleFailure:request withCallback:[[request userInfo] objectForKey:@"callback"]];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-    [self handleFailure:request];
+    [self handleFailure:request withCallback:[[request userInfo] objectForKey:@"callback"]];
 }
 
-- (void)handleSuccess:(ASIHTTPRequest *)request
+- (void)handleSuccess:(ASIHTTPRequest *)request withCallback:(SGCallback *)callback
 {
-    NSDictionary* userInfo = [request userInfo];
-    if(userInfo) {
-        SGCallback *callback = [userInfo objectForKey:@"callback"];
-        NSObject *response = [self jsonObjectForResponseData:[request responseData]];
-        if(callback && callback.delegate && [callback.delegate respondsToSelector:callback.successMethod])
-            [callback.delegate performSelector:callback.successMethod 
-                                    withObject:response];    
+    NSObject *response = [self jsonObjectForResponseData:[request responseData]];
+    if(callback && callback.delegate && [callback.delegate respondsToSelector:callback.successMethod])
+        [callback.delegate performSelector:callback.successMethod 
+                                withObject:response];    
 
 #if NS_BLOCKS_AVAILABLE
-        if(callback.successBlock)
-            callback.successBlock(response);
+    if(callback.successBlock)
+        callback.successBlock(response);
 #endif
-    }
 }
 
-- (void)handleFailure:(ASIHTTPRequest *)request
+- (void)handleFailure:(ASIHTTPRequest *)request withCallback:(SGCallback *)callback
 {
-    NSDictionary* userInfo = [request userInfo];
-    if(userInfo) {
-        SGCallback *callback = [userInfo objectForKey:@"callback"];
-        if(callback) {
-            NSDictionary *userInfo = (NSDictionary*)[self jsonObjectForResponseData:[request responseData]];
-            if(!userInfo || ![userInfo isKindOfClass:[NSDictionary class]])
-                userInfo = [NSDictionary dictionary];
+    NSDictionary *userInfo = (NSDictionary*)[self jsonObjectForResponseData:[request responseData]];
+    if(!userInfo || ![userInfo isKindOfClass:[NSDictionary class]])
+        userInfo = [NSDictionary dictionary];
 
-            NSError* error = [NSError errorWithDomain:[request.url description]
-                                                 code:[request responseStatusCode]
-                                             userInfo:userInfo];
-            if(callback && callback.delegate && [callback.delegate respondsToSelector:callback.failureMethod])
-                [callback.delegate performSelector:callback.failureMethod withObject:error];  
-            SGLog(@"request failed - %@", [error localizedDescription]);
+    NSError* error = [NSError errorWithDomain:[request.url description]
+                                         code:[request responseStatusCode]
+                                     userInfo:userInfo];
+    if(callback && callback.delegate && [callback.delegate respondsToSelector:callback.failureMethod])
+        [callback.delegate performSelector:callback.failureMethod withObject:error];  
+    SGLog(@"request failed - %@", [error localizedDescription]);
 
 #if NS_BLOCKS_AVAILABLE
-            if(callback.failureBlock)
-                callback.failureBlock(error);
+    if(callback.failureBlock)
+        callback.failureBlock(error);
 #endif
-        }
-    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -247,6 +254,8 @@
                                           secret:consumerSecret
                                  tokenIdentifier:accessToken
                                           secret:accessSecret
+                                        verifier:verifier
+                                        callback:oauthCallback         
                                      usingMethod:ASIOAuthHMAC_SHA1SignatureMethod];
     }
 
@@ -261,7 +270,11 @@
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
     NSDictionary *jsonObject = nil;
     if(jsonString)
-         jsonObject = [jsonString JSONValue];
+        jsonObject = [jsonString JSONValue];
+
+    if(!jsonObject)
+        jsonObject = [NSDictionary dictionaryWithObject:jsonString forKey:@"response"];
+
     [jsonString release];
     return jsonObject;
 }
@@ -289,6 +302,8 @@
     [accessSecret release];
     [consumerSecret release];
     [userAgent release];
+    [verifier release];
+    [oauthCallback release];
     [super dealloc];
 }
 

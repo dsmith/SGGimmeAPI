@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class ASIHTTPRequest;
+
 #if NS_BLOCKS_AVAILABLE
 typedef void (^SGFailureBlock)(NSError *error);
 typedef void (^SGSuccessBlock)(NSObject *response);
@@ -35,6 +37,8 @@ typedef void (^SGSuccessBlock)(NSObject *response);
 @property (nonatomic, readonly) SGFailureBlock failureBlock;
 #endif
 
++ (SGCallback *)callback;
+
 + (SGCallback *)callbackWithDelegate:(id)delegate successMethod:(SEL)method failureMethod:(SEL)method;
 - (id)initWithDelegate:(id)delegate successMethod:(SEL)method failureMethod:(SEL)method;
 
@@ -45,16 +49,29 @@ typedef void (^SGSuccessBlock)(NSObject *response);
 
 @end
 
+@class SGInternalClient;
+
 @interface SGHTTPClient : NSObject {
 
     NSString *userAgent;
 
-    @private
+    NSString *oauthCallback;
+    NSString *verifier;
+
     NSString *consumerKey;
     NSString *consumerSecret;
     NSString *accessToken;
     NSString *accessSecret;
 }
+
+@property (nonatomic, retain) NSString *verifier;
+@property (nonatomic, retain) NSString *oauthCallback;
+
+@property (nonatomic, retain) NSString *consumerKey;
+@property (nonatomic, retain) NSString *consumerSecret;
+@property (nonatomic, retain) NSString *accessToken;
+@property (nonatomic, retain) NSString *accessSecret;
+
 
 - (id)initWithConsumerKey:(NSString *)key consumerSecret:(NSString *)secret;
 - (id)initWithConsumerKey:(NSString *)key
@@ -67,5 +84,10 @@ typedef void (^SGSuccessBlock)(NSObject *response);
                   toURL:(NSURL *)url
              withParams:(NSDictionary *)params 
                callback:(SGCallback *)callback;
+
+- (void)updateConsumerKey:(NSString *)key andSecret:(NSString *)secret;
+
+- (void)handleFailure:(ASIHTTPRequest *)request withCallback:(SGCallback *)callback;
+- (void)handleSuccess:(ASIHTTPRequest *)request withCallback:(SGCallback *)callback;
 
 @end
