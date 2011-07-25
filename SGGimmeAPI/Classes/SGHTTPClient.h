@@ -85,8 +85,6 @@ typedef void (^SGSuccessBlock)(NSObject *response);
              withParams:(NSDictionary *)params 
                callback:(SGCallback *)callback;
 
-- (void)updateConsumerKey:(NSString *)key andSecret:(NSString *)secret;
-
 - (void)handleFailure:(ASIHTTPRequest *)request withCallback:(SGCallback *)callback;
 - (void)handleSuccess:(ASIHTTPRequest *)request withCallback:(SGCallback *)callback;
 

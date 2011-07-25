@@ -148,19 +148,6 @@
     return self;    
 }
 
-- (void)updateConsumerKey:(NSString *)key andSecret:(NSString *)secret
-{
-    if(consumerKey)
-        [consumerKey release];
-    
-    consumerKey = [key retain];
-    
-    if(consumerSecret)
-        [consumerSecret release];
-
-    consumerSecret = [secret retain];
-}
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark ASIHTTPRequest delegate methods 
