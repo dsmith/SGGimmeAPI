@@ -33,8 +33,8 @@ typedef void (^SGSuccessBlock)(NSObject *response);
 @property (nonatomic, readonly) SEL failureMethod;
 
 #if NS_BLOCKS_AVAILABLE
-@property (nonatomic, readonly) SGSuccessBlock successBlock;
-@property (nonatomic, readonly) SGFailureBlock failureBlock;
+@property (nonatomic, retain) SGSuccessBlock successBlock;
+@property (nonatomic, retain) SGFailureBlock failureBlock;
 #endif
 
 + (SGCallback *)callback;

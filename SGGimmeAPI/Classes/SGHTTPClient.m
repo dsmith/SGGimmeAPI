@@ -62,8 +62,8 @@
 {
     self = [super init];
     if(self) {
-        successBlock = [sBlock retain];
-        failureBlock = [fBlock retain];
+        [self setSuccessBlock:sBlock];
+        [self setFailureBlock:fBlock];
     }
     
     return self;
@@ -224,7 +224,11 @@
             [postRequest setPostValue:[params objectForKey:key] forKey:key];
         }
         request = postRequest;
-    } else {
+    } else if([type isEqualToString:@"PUT"]) {
+        request = [ASIHTTPRequest requestWithURL:url];
+        if(params)
+            [request setPostBody:[NSMutableData dataWithData:[[params JSONFragment] dataUsingEncoding:NSASCIIStringEncoding]]];
+    }else {
         NSString *queryParameters = @"";
         if(params && [params count])
             queryParameters = [NSString stringWithFormat:@"%@%@", 
