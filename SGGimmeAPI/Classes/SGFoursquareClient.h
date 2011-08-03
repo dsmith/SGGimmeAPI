@@ -8,7 +8,6 @@
 
 #import "SGHTTPClient.h"
 
-
 @interface SGFoursquareClient : SGHTTPClient {
     
 }
