@@ -30,7 +30,7 @@
         client = [[SGTwitterClient alloc] initWithConsumerKey:[credentials objectForKey:@"consumer_key"]
                                                consumerSecret:[credentials objectForKey:@"consumer_secret"]
                                                   accessToken:[credentials objectForKey:@"access_token"]
-                                                 accessSecret:[credentials objectForKey:@"access_secret"]];
+                                                 accessTokenSecret:[credentials objectForKey:@"access_secret"]];
     }
     
     return self;
