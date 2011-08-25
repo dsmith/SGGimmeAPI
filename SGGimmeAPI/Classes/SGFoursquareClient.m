@@ -10,7 +10,7 @@
 
 static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 
-@interface SGFoursquareClient (Private)
+@interface SGFoursquareClient ()
 
 - (void)sendHTTPRequest:(NSString *)type
                   toFile:(NSString *)file

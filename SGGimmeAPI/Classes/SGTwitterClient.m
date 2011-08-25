@@ -10,7 +10,7 @@
 
 static NSString* twitterURL = @"http://api.twitter.com/1";
 
-@interface SGTwitterClient (Private)
+@interface SGTwitterClient ()
 
 - (void)sendHTTPRequest:(NSString *)type
                  toFile:(NSString *)file
