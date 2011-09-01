@@ -38,7 +38,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(message)
         [params setValue:message forKey:@"shout"];
@@ -233,7 +233,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(name)
         [params setValue:name forKey:@"name"];
@@ -256,7 +256,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     [params setObject:[NSString stringWithFormat:@"%f,%f", lat,lon] forKey:@"ll"];
     
@@ -270,7 +270,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     [params setObject:[NSString stringWithFormat:@"%f,%f", lat,lon] forKey:@"ll"];
     
@@ -284,7 +284,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     [params setObject:[NSString stringWithFormat:@"%f,%f", lat,lon] forKey:@"ll"];
     
@@ -397,7 +397,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     [params setObject:[NSString stringWithFormat:@"%f,%f", lat, lon] forKey:@"ll"];
     

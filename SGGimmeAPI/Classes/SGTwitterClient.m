@@ -156,7 +156,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
 
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -171,7 +171,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
 
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -186,7 +186,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
 
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -254,7 +254,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(status)
         [params setValue:status forKey:@"status"];
@@ -274,7 +274,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(query)
         [params setValue:query forKey:@"q"];
@@ -318,7 +318,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(text)
         [params setValue:text forKey:@"text"];
@@ -349,7 +349,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -364,7 +364,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -382,7 +382,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userIdA)
         [params setValue:userIdA forKey:@"user_id_a"];
@@ -424,7 +424,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -439,7 +439,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -454,7 +454,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -469,7 +469,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -510,7 +510,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(query)
         [params setValue:query forKey:@"q"];
@@ -525,7 +525,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -541,7 +541,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -557,7 +557,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -604,7 +604,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"id"];
@@ -620,7 +620,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(favoriteId)
         [params setValue:favoriteId forKey:@"id"];
@@ -653,7 +653,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -668,7 +668,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(listId)
         [params setValue:listId forKey:@"list_id"];
@@ -686,7 +686,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(listId)
         [params setValue:listId forKey:@"list_id"];
@@ -704,7 +704,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
         
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -719,7 +719,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(listId)
         [params setValue:listId forKey:@"list_id"];
@@ -737,7 +737,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(listId)
         [params setValue:listId forKey:@"list_id"];
@@ -757,7 +757,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
 
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -782,7 +782,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -807,7 +807,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userIds)
         [params setValue:userIds forKey:@"user_id"];
@@ -833,7 +833,7 @@ subscriptionToList:(NSString *)listId
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -858,7 +858,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -879,7 +879,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(listId)
         [params setValue:listId forKey:@"list_id"];
@@ -897,7 +897,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(listId)
         [params setValue:listId forKey:@"list_id"];
@@ -915,7 +915,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(name)
         [params setValue:name forKey:@"name"];
@@ -930,7 +930,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -953,7 +953,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setValue:userId forKey:@"user_id"];
@@ -1039,7 +1039,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     [params setValue:[NSNumber numberWithDouble:lat] forKey:@"lat"];
     [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"long"];
@@ -1054,7 +1054,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(query)
         [params setObject:query forKey:@"q"];
@@ -1069,7 +1069,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(name)
         [params setObject:name forKey:@"name"];
@@ -1164,7 +1164,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setObject:userId forKey:@"user_id"];
@@ -1179,7 +1179,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setObject:userId forKey:@"user_id"];
@@ -1194,7 +1194,7 @@ subscriptionToList:(NSString *)listId
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
-        [params setDictionary:options];
+        [params addEntriesFromDictionary:options];
     
     if(userId)
         [params setObject:userId forKey:@"user_id"];
