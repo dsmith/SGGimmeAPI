@@ -8,6 +8,9 @@
 
 #import "SGHTTPClient.h"
 
+/**
+ A HTTP client that interfaces with Foursquare's API.
+*/
 @interface SGFoursquareClient : SGHTTPClient {
 
 }

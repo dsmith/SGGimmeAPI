@@ -8,8 +8,9 @@
 
 #import "SGHTTPClient.h"
 
-#import <UIKit/UIKit.h>
-
+/**
+ A HTTP client that interfaces with Twitter's API.
+*/
 @interface SGTwitterClient : SGHTTPClient {
 
 }
