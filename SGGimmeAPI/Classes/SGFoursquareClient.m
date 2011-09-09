@@ -14,7 +14,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 
 - (void)sendHTTPRequest:(NSString *)type
                   toFile:(NSString *)file
-             withParams:(NSDictionary *)params 
+             withParams:(NSDictionary *)params
                callback:(SGCallback *)callback;
 
 @end
@@ -23,8 +23,8 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark Check in methods 
-//////////////////////////////////////////////////////////////////////////////////////////////// 
+#pragma mark Check in methods
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 - (void)informationForCheckin:(NSString *)checkinId callback:(SGCallback *)callback;
 {
@@ -39,18 +39,18 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(message)
         [params setValue:message forKey:@"shout"];
-    
+
     if(venueId)
         [params setValue:venueId forKey:@"venueId"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/checkins/add"
                withParams:params
                  callback:callback];
-    
+
 }
 
 - (void)shout:(NSString *)message options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -79,13 +79,13 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     [self sendHTTPRequest:@"POST"
                    toFile:[NSString stringWithFormat:@"/checkins/%@/deletecomment", checkinId]
                withParams:[NSDictionary dictionaryWithObject:commentId forKey:@"commentId"]
-                 callback:callback];    
+                 callback:callback];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark User methods 
-//////////////////////////////////////////////////////////////////////////////////////////////// 
+#pragma mark User methods
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 - (void) userInformation:(NSString*)userId callback:(SGCallback*)callback
 {
@@ -132,7 +132,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     [self sendHTTPRequest:@"GET"
                    toFile:[NSString stringWithFormat:@"/users/%@/checkins", userId]
                withParams:options
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)friendsForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -140,7 +140,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     [self sendHTTPRequest:@"GET"
                    toFile:[NSString stringWithFormat:@"/users/%@/friends", userId]
                withParams:options
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)mayorshipsForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -213,13 +213,13 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     [self sendHTTPRequest:@"POST"
                    toFile:[NSString stringWithFormat:@"/users/%@/setpings", userId]
                withParams:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:enabled] forKey:@"value"]
-                 callback:callback];    
+                 callback:callback];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Venue
-//////////////////////////////////////////////////////////////////////////////////////////////// 
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 - (void)informationForVenue:(NSString *)venueId callback:(SGCallback *)callback
 {
@@ -234,10 +234,10 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(name)
         [params setValue:name forKey:@"name"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/venues/add"
                withParams:params
@@ -257,9 +257,9 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     [params setObject:[NSString stringWithFormat:@"%f,%f", lat,lon] forKey:@"ll"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/venues/explore"
                withParams:params
@@ -271,9 +271,9 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     [params setObject:[NSString stringWithFormat:@"%f,%f", lat,lon] forKey:@"ll"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/venues/search"
                withParams:params
@@ -285,13 +285,13 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     [params setObject:[NSString stringWithFormat:@"%f,%f", lat,lon] forKey:@"ll"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/venues/trending"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)hereNowAtVenue:(NSString *)venueId options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -307,7 +307,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     [self sendHTTPRequest:@"GET"
                    toFile:[NSString stringWithFormat:@"/venues/%@/tips", venueId]
                withParams:options
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)photosFromVenue:(NSString *)venueId options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -323,7 +323,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     [self sendHTTPRequest:@"GET"
                    toFile:[NSString stringWithFormat:@"/venues/%@/links", venueId]
                withParams:nil
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)markVenue:(NSString *)venueId asToDo:(NSString *)message callback:(SGCallback *)callback
@@ -331,7 +331,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     NSDictionary *params = nil;
     if(message)
         params = [NSDictionary dictionaryWithObject:message forKey:@"text"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:[NSString stringWithFormat:@"/venues/%@/links", venueId]
                withParams:params
@@ -343,11 +343,11 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     NSDictionary *params = nil;
     if(problem)
         params = [NSDictionary dictionaryWithObject:problem forKey:@"problem"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:[NSString stringWithFormat:@"/venues/%@/flag", venueId]
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)editVenue:(NSString *)venueId withOptions:(NSDictionary *)options callback:(SGCallback *)callback
@@ -363,13 +363,13 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     [self sendHTTPRequest:@"POST"
                    toFile:[NSString stringWithFormat:@"/venues/%@/proposeedit", venueId]
                withParams:options
-                 callback:callback];    
+                 callback:callback];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Tips
-//////////////////////////////////////////////////////////////////////////////////////////////// 
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 - (void)informationForTip:(NSString *)tipId callback:(SGCallback *)callback
 {
@@ -384,7 +384,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             venueId, @"venueId",
                             tip, @"message",
-                            url, @"url", 
+                            url, @"url",
                             nil];
 
     [self sendHTTPRequest:@"POST"
@@ -398,9 +398,9 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     [params setObject:[NSString stringWithFormat:@"%f,%f", lat, lon] forKey:@"ll"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/tips/search"
                withParams:params
@@ -411,7 +411,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 {
     [self sendHTTPRequest:@"POST"
                    toFile:[NSString stringWithFormat:@"/tips/%@/marktodo", tipId]
-              withParams:nil 
+              withParams:nil
                  callback:callback];
 }
 
@@ -419,7 +419,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 {
     [self sendHTTPRequest:@"POST"
                    toFile:[NSString stringWithFormat:@"/tips/%@/markdone", tipId]
-               withParams:nil 
+               withParams:nil
                  callback:callback];
 }
 
@@ -427,7 +427,7 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 {
     [self sendHTTPRequest:@"POST"
                    toFile:[NSString stringWithFormat:@"/tips/%@/unmarktodo", tipId]
-               withParams:nil 
+               withParams:nil
                  callback:callback];
 }
 
@@ -460,10 +460,10 @@ static NSString* foursquareURL = @"https://api.foursquare.com/v2";
 
 - (void)sendHTTPRequest:(NSString *)type
                  toFile:(NSString *)file
-             withParams:(NSDictionary *)params 
+             withParams:(NSDictionary *)params
                callback:(SGCallback *)callback
 {
-    [self sendHTTPRequest:type 
+    [self sendHTTPRequest:type
                     toURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@.json", foursquareURL, file]]
                withParams:params
                  callback:callback];

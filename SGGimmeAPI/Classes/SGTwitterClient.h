@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SGTwitterClient : SGHTTPClient {
-    
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -22,7 +22,7 @@
 - (void)verifyCredentials:(SGCallback *)callback;
 - (void)rateLimitStatus:(SGCallback *)callback;
 - (void)totals:(SGCallback *)callback;
-- (void)settings:(SGCallback *)callback; 
+- (void)settings:(SGCallback *)callback;
 - (void)updateSettings:(NSDictionary *)settings callback:(SGCallback *)callback;
 - (void)updateProfileColors:(NSDictionary *)colors callback:(SGCallback *)callback;
 - (void)updateProfileImage:(UIImage *)image callback:(SGCallback *)callback;

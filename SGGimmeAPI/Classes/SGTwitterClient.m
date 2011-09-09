@@ -14,7 +14,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 
 - (void)sendHTTPRequest:(NSString *)type
                  toFile:(NSString *)file
-             withParams:(NSDictionary *)params 
+             withParams:(NSDictionary *)params
                callback:(SGCallback *)callback;
 
 @end
@@ -79,7 +79,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(image)
         [params setValue:UIImagePNGRepresentation(image) forKey:@"image"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/account/update_profile_image"
                withParams:params
@@ -92,11 +92,11 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
                                                                      forKey:@"tile"];
     if(image)
         [params setValue:UIImagePNGRepresentation(image) forKey:@"image"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/account/update_profile_background_image"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)updateProfile:(NSDictionary*)settings callback:(SGCallback *)callback
@@ -160,7 +160,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/statuses/user_timeline"
                withParams:params
@@ -190,7 +190,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/statuses/retweeted_by_user"
                withParams:options
@@ -255,10 +255,10 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(status)
         [params setValue:status forKey:@"status"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/statuses/update"
                withParams:params
@@ -275,10 +275,10 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(query)
         [params setValue:query forKey:@"q"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/search"
                withParams:params
@@ -315,20 +315,20 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 }
 
 - (void)newDirectMessage:(NSString *)text toUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
-{    
+{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(text)
         [params setValue:text forKey:@"text"];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/direct_messages/new"
-               withParams:params 
+               withParams:params
                  callback:callback];
 }
 
@@ -350,10 +350,10 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/followers/ids"
                withParams:params
@@ -365,25 +365,25 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/friends/ids"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
-- (void)friendshipExistsBetweenUser:(NSString *)userIdA 
+- (void)friendshipExistsBetweenUser:(NSString *)userIdA
                             andUser:(NSString *)userIdB
-                            options:(NSDictionary *)options 
+                            options:(NSDictionary *)options
                            callback:(SGCallback *)callback
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userIdA)
         [params setValue:userIdA forKey:@"user_id_a"];
 
@@ -393,7 +393,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     [self sendHTTPRequest:@"GET"
                    toFile:@"/friendships/exists"
                withParams:params
-                 callback:callback];        
+                 callback:callback];
 }
 
 - (void)incomingFriendships:(NSDictionary *)options callback:(SGCallback *)callback
@@ -425,10 +425,10 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/friendships/create"
                withParams:params
@@ -440,14 +440,14 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/friendships/destroy"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)lookupFriendshipWithFriend:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -455,14 +455,14 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/friendships/lookup"
                withParams:params
-                 callback:callback];        
+                 callback:callback];
 }
 
 - (void)updateFriendship:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -470,10 +470,10 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/friendships/update"
                withParams:params
@@ -498,7 +498,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(size)
         [params setObject:size forKey:@"size"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:[NSString stringWithFormat:@"/users/profile_image/%@", screenName]
                withParams:params
@@ -511,10 +511,10 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(query)
         [params setValue:query forKey:@"q"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/users/search"
                withParams:params
@@ -526,10 +526,10 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
 
     [self sendHTTPRequest:@"GET"
                    toFile:@"/users/show"
@@ -542,11 +542,11 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
-    
+
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/users/contributees"
                withParams:params
@@ -558,15 +558,15 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
-    
+
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/users/contributors"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -577,10 +577,10 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
 - (void)suggestedUsersInLang:(NSString *)lang callback:(SGCallback *)callback
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
+
     if(lang)
         [params setValue:lang forKey:@"lang"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/users/suggestions"
                withParams:params
@@ -592,7 +592,7 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     [self sendHTTPRequest:@"GET"
                    toFile:[NSString stringWithFormat:@"/users/suggestions/%@", category]
                withParams:options
-                 callback:callback];        
+                 callback:callback];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -605,15 +605,15 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"id"];
-    
-    
+
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/favorites"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)createFavorite:(NSString *)favoriteId options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -621,10 +621,10 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(favoriteId)
         [params setValue:favoriteId forKey:@"id"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:[NSString stringWithFormat:@"/favorites/create/%@", favoriteId]
                withParams:params
@@ -636,12 +636,12 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(favoriteId)
         [params setValue:favoriteId forKey:@"id"];
-    
-    
+
+
     [self sendHTTPRequest:@"GET"
                    toFile:[NSString stringWithFormat:@"/favorites/destroy/%@", favoriteId]
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -654,10 +654,10 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/lists/all"
                withParams:params
@@ -669,17 +669,17 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(listId)
         [params setValue:listId forKey:@"list_id"];
 
     if(slug)
         [params setValue:slug forKey:@"slug"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/lists/statuses"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)removeMember:(NSString *)userId fromList:(NSString *)listId options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -687,17 +687,17 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(listId)
         [params setValue:listId forKey:@"list_id"];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/lists/members/destroy"
                withParams:params
-                 callback:callback];        
+                 callback:callback];
 }
 
 - (void)listMemembersForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -705,14 +705,14 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-        
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/lists/memerships"
                withParams:params
-                 callback:callback];            
+                 callback:callback];
 }
 
 - (void)subscribersForList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -720,17 +720,17 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(listId)
         [params setValue:listId forKey:@"list_id"];
-    
+
     if(slug)
         [params setValue:slug forKey:@"slug"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/lists/memerships"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)subscribeUserToList:(NSString *)listId options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -738,10 +738,10 @@ static NSString* twitterURL = @"http://api.twitter.com/1";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(listId)
         [params setValue:listId forKey:@"list_id"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/lists/subscribers/create"
                withParams:params
@@ -761,17 +761,17 @@ subscriptionToList:(NSString *)listId
 
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     if(listId)
         [params setValue:listId forKey:@"list_id"];
-    
+
     if(slug)
         [params setValue:slug forKey:@"slug"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/lists/subscribers/show"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)destroyUser:(NSString *)userId
@@ -783,16 +783,16 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     if(listId)
         [params setValue:listId forKey:@"list_id"];
-    
+
     if(slug)
         [params setValue:slug forKey:@"slug"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/lists/subscribers/destroy"
                withParams:params
@@ -808,39 +808,39 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userIds)
         [params setValue:userIds forKey:@"user_id"];
-    
+
     if(listId)
         [params setValue:listId forKey:@"list_id"];
-    
+
     if(slug)
         [params setValue:slug forKey:@"slug"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/lists/members/create_all"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)showMembersForUser:(NSString *)userId
                     inList:(NSString *)listId
                       slug:(NSString *)slug
-                   options:(NSDictionary *)options 
+                   options:(NSDictionary *)options
                   callback:(SGCallback *)callback
 {
-    
+
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     if(listId)
         [params setValue:listId forKey:@"list_id"];
-    
+
     if(slug)
         [params setValue:slug forKey:@"slug"];
 
@@ -851,7 +851,7 @@ subscriptionToList:(NSString *)listId
 }
 
 - (void)addMember:(NSString *)userId
-           toList:(NSString *)listId 
+           toList:(NSString *)listId
              slug:(NSString *)slug
           options:(NSDictionary *)options
          callback:(SGCallback *)callback;
@@ -859,16 +859,16 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     if(listId)
         [params setValue:listId forKey:@"list_id"];
-    
+
     if(slug)
         [params setValue:slug forKey:@"slug"];
-        
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/lists/members/create"
                withParams:params
@@ -880,17 +880,17 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(listId)
         [params setValue:listId forKey:@"list_id"];
-    
+
     if(slug)
         [params setValue:slug forKey:@"slug"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/lists/destroy"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)updateList:(NSString *)listId slug:(NSString *)slug options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -898,13 +898,13 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(listId)
         [params setValue:listId forKey:@"list_id"];
-    
+
     if(slug)
         [params setValue:slug forKey:@"slug"];
-    
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/lists/members/update"
                withParams:params
@@ -916,14 +916,14 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(name)
         [params setValue:name forKey:@"name"];
-        
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/lists/members/create"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)listsForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -931,14 +931,14 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/lists"
                withParams:params
-                 callback:callback];        
+                 callback:callback];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -954,7 +954,7 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setValue:userId forKey:@"user_id"];
 
@@ -1040,10 +1040,10 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     [params setValue:[NSNumber numberWithDouble:lat] forKey:@"lat"];
     [params setValue:[NSNumber numberWithDouble:longitude] forKey:@"long"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/geo/reverse_geocoder"
                withParams:params
@@ -1055,10 +1055,10 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(query)
         [params setObject:query forKey:@"q"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/geo/search"
                withParams:params
@@ -1070,36 +1070,36 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(name)
         [params setObject:name forKey:@"name"];
 
     [params setValue:[NSNumber numberWithDouble:lat] forKey:@"lat"];
-    [params setValue:[NSNumber numberWithDouble:lon] forKey:@"long"];    
-    
+    [params setValue:[NSNumber numberWithDouble:lon] forKey:@"long"];
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/geo/similar_places"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 - (void)createPlace:(NSString *)name containWithin:(NSString *)placeId token:(NSString *)token latitude:(double)lat longitude:(double)lon callback:(SGCallback *)callback
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
+
     if(name)
         [params setObject:name forKey:@"name"];
-    
+
     if(token)
         [params setObject:token forKey:@"token"];
-    
+
     [params setValue:[NSNumber numberWithDouble:lat] forKey:@"lat"];
-    [params setValue:[NSNumber numberWithDouble:lon] forKey:@"long"];    
-    
+    [params setValue:[NSNumber numberWithDouble:lon] forKey:@"long"];
+
     [self sendHTTPRequest:@"POST"
                    toFile:@"/geo/place"
                withParams:params
-                 callback:callback];    
+                 callback:callback];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1119,7 +1119,7 @@ subscriptionToList:(NSString *)listId
 {
     [self sendHTTPRequest:@"GET"
                    toFile:@"/trends/current"
-               withParams:options 
+               withParams:options
                  callback:callback];
 }
 
@@ -1165,13 +1165,13 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setObject:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/blocks/exists"
-               withParams:options 
+               withParams:options
                  callback:callback];
 }
 
@@ -1180,14 +1180,14 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setObject:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/blocks/create"
-               withParams:options 
-                 callback:callback];    
+               withParams:options
+                 callback:callback];
 }
 
 - (void)destroyBlockForUser:(NSString *)userId options:(NSDictionary *)options callback:(SGCallback *)callback
@@ -1195,14 +1195,14 @@ subscriptionToList:(NSString *)listId
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if(options)
         [params addEntriesFromDictionary:options];
-    
+
     if(userId)
         [params setObject:userId forKey:@"user_id"];
-    
+
     [self sendHTTPRequest:@"GET"
                    toFile:@"/blocks/destroy"
-               withParams:options 
-                 callback:callback];        
+               withParams:options
+                 callback:callback];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1225,10 +1225,10 @@ subscriptionToList:(NSString *)listId
 
 - (void)sendHTTPRequest:(NSString *)type
                  toFile:(NSString *)file
-             withParams:(NSDictionary *)params 
+             withParams:(NSDictionary *)params
                callback:(SGCallback *)callback
 {
-    [self sendHTTPRequest:type 
+    [self sendHTTPRequest:type
                     toURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@.json", twitterURL, file]]
                withParams:params
                  callback:callback];

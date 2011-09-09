@@ -11,7 +11,7 @@
 #import "SGTwitterClient.h"
 
 @interface SGTwitterClientTest : GHAsyncTestCase {
- 
+
     SGTwitterClient* client;
 }
 
@@ -32,7 +32,7 @@
                                                   accessToken:[credentials objectForKey:@"access_token"]
                                                  accessTokenSecret:[credentials objectForKey:@"access_secret"]];
     }
-    
+
     return self;
 }
 
@@ -45,7 +45,7 @@
 {
     [self prepare];
     SGCallback *callback = [SGCallback callbackWithDelegate:self
-                                              successMethod:@selector(verifyCredentialsDidSucceed:) 
+                                              successMethod:@selector(verifyCredentialsDidSucceed:)
                                               failureMethod:@selector(verifyCredentialsDidFail:)];
     [client verifyCredentials:callback];
     [self waitForStatus:kGHUnitWaitStatusSuccess timeout:10.0];

@@ -11,7 +11,7 @@
 #import "SGFoursquareClient.h"
 
 @interface SGFoursquareClientTest : GHAsyncTestCase {
-    
+
     SGFoursquareClient* client;
 }
 
@@ -28,7 +28,7 @@
         NSDictionary* credentials = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"foursquare"];
         client = [[SGFoursquareClient alloc] initWithAccessToken:[credentials objectForKey:@"access_token"]];
     }
-    
+
     return self;
 }
 
@@ -40,22 +40,22 @@
 - (void)testUserLeaderboard
 {
     [self prepare];
-    
+
     SGCallback *callback = [SGCallback callbackWithDelegate:self
                                               successMethod:@selector(userLeaderboardDidSucceed:)
                                               failureMethod:@selector(userLeaderboardDidFail:)];
     [client userLeaderboard:callback];
-    [self waitForStatus:kGHUnitWaitStatusSuccess timeout:10.0];    
+    [self waitForStatus:kGHUnitWaitStatusSuccess timeout:10.0];
 }
 
 - (void)userLeaderboardDidSucceed:(NSDictionary *)response
 {
-    [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testUserLeaderboard)];    
+    [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testUserLeaderboard)];
 }
 
 - (void)userLeaderboardDidFail:(NSError *)error
 {
-    [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testUserLeaderboard)];    
+    [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testUserLeaderboard)];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
